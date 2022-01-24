@@ -134,31 +134,169 @@ All text above, and the splash screen must be included in any redistribution
 #define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
 #define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2A
 
-void ssd1306_begin(unsigned int switchvcc, unsigned int i2caddr); //switchvcc should be SSD1306_SWITCHCAPVCC
+/**
+ * 使用需要引用本头文件 
+ * 
+ * 首先需要初始化 ssd1306_begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);
+ * 所有对屏幕的操作实际上是对一个缓存数组的操作，操作后需要使用 ssd1306_display(); 刷新到屏幕
+ * 
+ * 屏幕坐标以左上角为原点，从左往右为 x 方向，从上往下为 y 方向
+ * 
+ */
+
+/**
+ * @brief 初始化
+ * 
+ * @param switchvcc 填 SSD1306_SWITCHCAPVCC
+ * @param i2caddr 填 SSD1306_I2C_ADDRESS
+ */
+void ssd1306_begin(unsigned int switchvcc, unsigned int i2caddr);
+
+
 void ssd1306_command(unsigned int c);
 
+
+/**
+ * @brief 清空缓存
+ * 
+ */
 void ssd1306_clearDisplay(void);
+
+
+/**
+ * @brief 背景反转
+ * 
+ * @param i 置为 1 变成亮背景，黑色字符; 置为 0 变成黑背景，亮字符。默认为后者。
+ */
 void ssd1306_invertDisplay(unsigned int i);
+
+
+/**
+ * @brief 将缓存刷写到屏幕
+ * 
+ */
 void ssd1306_display();
 
+
+/**
+ * @brief 右滚动，开始行和结束行之间的行数滚动，闭区间
+ * 
+ * @param start 开始行，第一行为 0
+ * @param stop 结束行
+ */
 void ssd1306_startscrollright(unsigned int start, unsigned int stop);
+
+
+/**
+ * @brief 左滚动，开始行和结束行之间的行数滚动，闭区间
+ * 
+ * @param start 开始行，第一行为 0
+ * @param stop 结束行
+ */
 void ssd1306_startscrollleft(unsigned int start, unsigned int stop);
 
+
+/**
+ * @brief 指定行区间右滚动（闭区间），其它行上滚动
+ * 
+ * @param start 开始行，第一行为 0
+ * @param stop 结束行
+ */
 void ssd1306_startscrolldiagright(unsigned int start, unsigned int stop);
+
+
+/**
+ * @brief 指定行区间左滚动（闭区间），其它行上滚动
+ * 
+ * @param start 开始行，第一行为 0
+ * @param stop 结束行
+ */
 void ssd1306_startscrolldiagleft(unsigned int start, unsigned int stop);
+
+
+/**
+ * @brief 停止滚动
+ * 
+ */
 void ssd1306_stopscroll(void);
 
+
+/**
+ * @brief 息屏
+ * 
+ * @param dim 1 息屏; 0 恢复亮屏
+ */
 void ssd1306_dim(unsigned int dim);
 
+/**
+ * @brief 对缓存点位显示的操作 - 最底层屏幕显示实现
+ * 
+ * @param x 
+ * @param y 
+ * @param color 亮点与暗点
+ */
 void ssd1306_drawPixel(int x, int y, unsigned int color);
 
+
+/**
+ * @brief 纵向线绘制
+ * 
+ * @param x 起始点横坐标
+ * @param y 起始点纵坐标
+ * @param h 直线长度
+ * @param color 置 1 显示
+ */
 void ssd1306_drawFastVLine(int x, int y, int h, unsigned int color);
+
+
+/**
+ * @brief 水平线绘制
+ * 
+ * @param x 起始点横坐标
+ * @param y 起始点纵坐标
+ * @param w 直线长度
+ * @param color 置 1 显示
+ */
 void ssd1306_drawFastHLine(int x, int y, int w, unsigned int color);
 
+
+/**
+ * @brief 矩形绘制
+ * 
+ * @param x 左上角横坐标
+ * @param y 左上角纵坐标
+ * @param w 宽度
+ * @param h 长度
+ * @param fillcolor 置 1 可见
+ */
 void ssd1306_fillRect(int x, int y, int w, int h, int fillcolor);
 
+
+/**
+ * @brief 修改字体大小
+ * 
+ * @param s 字体大小值
+ */
 void ssd1306_setTextSize(int s);
-void ssd1306_drawString(char *str);
+
+
+/**
+ * @brief 写字符串 - 基于“写字符”的封装
+ * 
+ * @param str 要写入的内容（不支持中文）
+ */
+void ssd1306_drawString(const char *str);
+
+
+/**
+ * @brief 写字符
+ * 
+ * @param x 左上角横坐标
+ * @param y 左上角纵坐标
+ * @param c 要写入的字符（不支持中文）
+ * @param color 置 1 显示
+ * @param size 字体大小
+ */
 void ssd1306_drawChar(int x, int y, unsigned char c, int color, int size);
 
 #endif				/* _SSD1306_I2C_H_ */
