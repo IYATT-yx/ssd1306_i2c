@@ -42,7 +42,7 @@ gcc demo.c -o demo `pkg-config --cflags --libs ssd1306_i2c` -no-pie
 ```
 
 ```cmake
-# 寻库部分
+# cmake 链接模板
 find_package(ssd1306_i2c REQUIRED)
 
 # 链接部分 - demo为可执行文件
