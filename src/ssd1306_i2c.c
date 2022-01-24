@@ -764,7 +764,7 @@ void ssd1306_write(int c)
 	}
 }
 
-void ssd1306_drawString(char *str)
+void ssd1306_drawString(const char *str)
 {
 	int i, end;
 	end = strlen(str);
