@@ -63,4 +63,4 @@ target_link_libraries(demo ${ssd1306_i2c_LIBRARIES} ${WIRINGPI_LIBRARIES})
  本项目基于 https://github.com/iliapenev/ssd1306_i2c  
  并进一步完善功能和修复bug，增加了 cmake 脚本实现本库的安装，添加了对 pkg-config 和 cmake 链接本库的支持，编写了样例程序，以及补充了API接口注解。
 
- Copyright (C) 2022 IYATT-yx (Zhao Hongfei, 赵洪飞)，2514374431@qq.com
+ Copyright (C) 2022 IYATT-yx (Zhao Hongfei, 赵洪飞)，iyatt@iyatt.com
