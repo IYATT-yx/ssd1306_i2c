@@ -1,18 +1,24 @@
 #[[
-    Copyright (C) 2022 IYATT-yx (Zhao Hongfei, 赵洪飞)，2514374431@qq.com
+Copyright (C) 2022 IYATT-yx iyatt@iyatt.com
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+每个人都可以复制和分发本许可证文档的逐字副本，但不允许更改。
+这个程序是自由软件：你可以在自由软件基金会发布的GNU Affro通用公共许可证的条款下重新分发它和/或修改它，
+或者许可证的第3版，或者（在你的选择）任何其他版本。
+本程序的发布目的是希望它有用，但不提供任何担保；甚至没有对适销性或特定用途适用性的默示保证。
+有关更多详细信息，请参阅GNU Affero通用公共许可证。
+您应该已经收到GNU Affero通用公共许可证的副本以及本程序。如果没有，请参阅<https://www.gnu.org/licenses/>.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ]]
 
 cmake_minimum_required(VERSION 3.16.3)
@@ -26,21 +32,6 @@ endif ()
 
 set(CMAKE_C_FLAGS_RELEASE "-std=c17 -O3")
 set(CMAKE_C_FLAGS_DEBUG "-std=c17 -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Werror=format-security -Wextra -pedantic -Wimplicit-fallthrough -Wsequence-point -Wswitch-unreachable -Wswitch-enum -Wstringop-truncation -Wbool-compare -Wtautological-compare -Wfloat-equal -Wshadow=global -Wpointer-arith -Wpointer-compare -Wcast-align -Wcast-qual -Wwrite-strings -Wdangling-else -Wlogical-op -Wconversion -g -O0 -DDEBUG")
-
-# 检查是否安装 wiringPi 库,未安装则获取源码安装
-# 注： 因为测试环境已经安装 wiringPi，尚未测试此部分是否有效
-include(CheckIncludeFiles)
-check_include_files(wiringPi.h HAVE_WIRINGPI_HEADS)
-if (NOT HAVE_WIRINGPI_HEADS)
-    set(WIRINGPI "WiringPi")
-    include(FetchContent)
-    FetchContent_Declare(${WIRINGPI}
-            GIT_REPOSITORY "https://github.com/WiringPi/WiringPi.git"
-            SOURCE_DIR /tmp/${WIRINGPI})
-    FetchContent_MakeAvailable(${ssd1306})
-    # 安装 wiringPi
-    execute_process(COMMAND sudo bash /tmp/${WIRINGPI}/INSTALL)
-endif ()
 
 # 查找 wiringPi 库
 find_path(WIRINGPI_INCLUDE_DIRS NAMES wiringPi.h)
