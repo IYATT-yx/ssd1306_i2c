@@ -2,27 +2,44 @@
 这是一个为树梅派编写的 ssd1306 i2c oled 库。
 
 # 测试环境
-树梅派cm4 官方系统64位  
-wiringPi C 库
+树莓派 cm4  
+官方系统 64 位（Debian 10）  
+官方系统 64 位（Debian 11）    
+[wiringPi C 库](https://github.com/WiringPi/WiringPi)  
 
-128x32 oled
+128x32 oled  
+128x64 oled
 # 使用
 
-获取源码  
-```
-git clone https://github.com/IYATT-yx/ssd1306_i2c.git --depth=1
+安装依赖
+```bash
+sudo apt update && sudo apt install build-essential cmake git
+
+git clone https://github.com/WiringPi/WiringPi.git --depth=1
+
+sudo bash WiringPi/INSTALL
 ```
 
-安装库
+安装
 ```bash
+git clone https://github.com/IYATT-yx/ssd1306_i2c.git --depth=1
+
 mkdir ssd1306_i2c/build && cd ssd1306_i2c/build
 
 cmake -DCMAKE_BUILD_TYPE=release ..
 
 sudo make install
+
+sudo su
+
+echo "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig" >> /etc/bash.bashrc
+
+source /etc/bash.bashrc
+
+exit
 ```
 
-如果要卸载
+卸载
 ```bash
 # 进入 ssd1306_i2c 目录，再执行
 sudo xargs rm -rf < build/install_manifest.txt
@@ -56,8 +73,8 @@ target_link_libraries(demo ${ssd1306_i2c_LIBRARIES} ${WIRINGPI_LIBRARIES})
 # 分辨率设置
 
 默认分辨率设置为  128x64  
-如果要修改，安装后可编辑 /usr/local/include/ssd1306_i2c.h  
-搜索关键词 `#define SSD1306_128_64`
+如果要修改，打开文件 [ssd1306_i2.h](include/ssd1306_i2c.h)，搜索关键词`分辨率设置`，注释原定义的分辨率，去掉要打开的分辨率定义的注释符。  
+然后重新进行上面的安装操作，完成修改。  
 
 # 声明
  本项目基于 https://github.com/iliapenev/ssd1306_i2c  
