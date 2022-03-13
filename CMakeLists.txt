@@ -39,7 +39,7 @@ find_library(WIRINGPI_LIBRARIES NAMES wiringPi)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src SRC)
-add_library(ssd1306_i2c SHARED ${SRC})  # 编译库
+add_library(ssd1306_i2c STATIC ${SRC})  # 编译库
 target_link_libraries(ssd1306_i2c ${WIRINGPI_LIBRARIES}) # 链接 wiringPi
 
 # 安装
